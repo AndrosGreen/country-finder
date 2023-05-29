@@ -11,11 +11,11 @@ app.use(express.json());
 import Chance from "chance";
 const chance = new Chance();
 
-const countries = [...Array(250).keys()].map((id) => {
+const countries = [...Array(10).keys()].map((id) => {
   return {
     id,
-    type: chance.country({ full: true }),
-    age: chance.address(),
+    name: chance.country({ full: true }),
+    location: chance.address(),
   };
 });
 
@@ -24,7 +24,7 @@ app.get("", (req, res) => {
   // Filter results by query
   const q = req.query.q?.toLowerCase() || "";
   const results = countries.filter((country) =>
-    country.type.toLocaleLowerCase().includes(q)
+    country.name.toLocaleLowerCase().includes(q)
   );
 
   res.send(results);
